@@ -15,7 +15,7 @@ const navItems = [
   { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { path: "/users", label: "Users", icon: Users },
   {path: "/homepage", label: "Home", icon: LayoutDashboard },
-  {path: "/homelist", label: "Home List", icon: LayoutDashboard },
+  {path: "/getpost", label: "Home List", icon: LayoutDashboard },
   { path: "/orders", label: "Orders", icon: ShoppingCart },
   { path: "/analytics", label: "Analytics", icon: BarChart3 },
   { path: "/settings", label: "Settings", icon: Settings, bottom: true },
