@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Contact = require("../../module/contactmodule/contactmodule.js");
+const Contact = require("../../module/contactmodule/contactmodule");
 
 const nodemailer = require("nodemailer");
 

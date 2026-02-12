@@ -5,7 +5,7 @@ const {
   getHomeData,
     updateHomeData
 
-} = require("../../controller/Homecontroller/homecontroller.js");
+} = require("../../controller/Homecontroller/homecontroller");
 
 router.post("/create", createContent);
 router.get("/product", getHomeData);

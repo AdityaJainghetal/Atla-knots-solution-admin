@@ -1,4 +1,4 @@
-const Category = require("../../module/techmodule/categorymodule.js");
+const Category = require("../../module/techmodule/categorymodule");
 
 
 const createCategory = async (req, res) => {

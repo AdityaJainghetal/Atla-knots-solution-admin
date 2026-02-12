@@ -1,5 +1,5 @@
-const techModel = require("../../module/techmodule/techmodule.js");
-const categoryModel = require("../../module/techmodule/categorymodule.js");
+const techModel = require("../../module/techmodule/techmodule");
+const categoryModel = require("../../module/techmodule/categorymodule");
 const imageKit = require("imagekit");
 const imagekit = require("../../utils/imagekit.js"); // note: consistent naming (lowercase 'i')
 

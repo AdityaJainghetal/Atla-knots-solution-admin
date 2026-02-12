@@ -2,9 +2,9 @@
 
 
 // const express = require("express");
-const Home = require("../../module/homemodule/homemodule.js"); // ← renamed to Home
+const Home = require("../../module/homemodule/homemodule"); // ← renamed to Home
 const imagekit = require("../../utils/imagekit.js");
-const Product = require("../../module/homemodule/homemodule.js"); // ← renamed to Product
+const Product = require("../../module/homemodule/homemodule"); // ← renamed to Product
 
 //     if (!name || !description) {
 //       return res.status(400).json({

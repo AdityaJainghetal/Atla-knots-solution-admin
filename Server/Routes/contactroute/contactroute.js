@@ -3,7 +3,7 @@ const {
   createContactMessage,
   getContactMessages,
   deleteContactMessage,
-} = require("../../controller/contactcontroller/contactcontroler.js");
+} = require("../../controller/contactcontroller/contactcontroler");
 
 router.post("/create", createContactMessage);
 router.get("/", getContactMessages);

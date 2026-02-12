@@ -1,9 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
-// const User = require('../../module/authmodule/authModule.js');
-const User = require('../../module/authmodule/authModule.js');
+const User = require('../../module/authmodule/authmodule');
 
 // REGISTER USER
 const registerUser = async (req, res) => {
