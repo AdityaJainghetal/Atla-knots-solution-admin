@@ -9,8 +9,12 @@ const path = require("node:path");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const dns = require("node:dns");
+const fileUpload = require("express-fileupload");
 const authRoutes = require("./Routes/authRoute.js");
 const homeRoutes = require("./Routes/homeroutes/homeroutes.js");
+const contactRoutes = require("./Routes/contactroute/contactroute.js");
+const techRoutes = require("./Routes/techRoute/techRoute.js");
+const categoryRoutes = require("./Routes/techRoute/categoryRoute.js");
 dns.setServers(["8.8.8.8", "1.1.1.1", "0.0.0.0"]);
 
 const app = express();
@@ -27,7 +31,11 @@ mongoose
     console.error("❌ MongoDB Connection Error:", err);
     process.exit(1);
   });
-
+app.use(
+  fileUpload({
+    useTempFiles: false,
+  })
+);
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(cookieParser());
@@ -41,7 +49,10 @@ app.use(
 );
 
 app.use("/api/auth", authRoutes);
-app.use("/api/home", homeRoutes);
+app.use("/api", homeRoutes);
+app.use("/api/contact",contactRoutes );
+app.use("/api/category", categoryRoutes);
+app.use("/tech",techRoutes);
 
 
 app.get("/", (req, res) => {

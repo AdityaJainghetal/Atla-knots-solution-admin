@@ -8,6 +8,12 @@ export const createProductApi = (formData) => {
   });
 };
 
+export const updateHomeApi = (id, data) => {
+  return axios.put(`http://localhost:8000/api/updatehome/${id}`, data);
+};
+export const deleteHomeApi = (id) =>
+  axios.delete(`${API_URL}/${id}`);
+
 export const getProductsApi = () => {
   return axios.get(API_URL);
 };

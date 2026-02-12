@@ -4,97 +4,136 @@
 // const express = require("express");
 const Home = require("../../module/homemodule/homemodule.js"); // ← renamed to Home
 const imagekit = require("../../utils/imagekit.js");
-const homemodule = require("../../module/homemodule/homemodule.js"); // ← this is still needed for create() method
+const Product = require("../../module/homemodule/homemodule.js"); // ← renamed to Product
 
-const homeController = async (req, res) => {
+//     if (!name || !description) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Name and description are required",
+//       });
+//     }
+
+//     let imageUrl = "";
+
+//     // 🔹 Image upload (ImageKit)
+//     if (req.file) {
+//       try {
+//         const file = req.file;
+
+//         console.log("Uploading image:", {
+//           name: file.originalname,
+//           size: file.size,
+//           type: file.mimetype,
+//         });
+
+//         const base64String = file.buffer.toString("base64");
+
+//         const uploadRes = await imagekit.upload({
+//           file: base64String,
+//           fileName: `content-${Date.now()}-${file.originalname}`,
+//           folder: "contentImages",
+//           overwriteFile: true,
+//         });
+
+//         imageUrl = uploadRes.url;
+//         console.log("✅ Image uploaded:", imageUrl);
+//       } catch (imgErr) {
+//         console.error("❌ ImageKit error:", imgErr);
+//         return res.status(500).json({
+//           success: false,
+//           message: "Image upload failed",
+//         });
+//       }
+//     }
+
+//     // 🔹 Save in DB
+//     const newContent = await Home.create({
+//       name,
+//       description,
+//       image: imageUrl,
+//       creator: userId,
+//     });
+
+//     return res.status(201).json({
+//       success: true,
+//       message: "Content created successfully",
+//       data: newContent,
+//     });
+//   } catch (error) {
+//     console.error("createContent error:", error);
+//     return res.status(500).json({
+//       success: false,
+//       message: error.message || "Server error",
+//     });
+//   }
+// };
+const createContent = async (req, res) => {
   try {
-    // Debug logs – very helpful
-    console.log("req.body →", req.body);
-    console.log("req.file →", req.file);
+    const { name, description } = req.body;
 
-    const { title, description } = req.body;
-    
-
-    if (!title) {
+    if (!name || !description) {
       return res.status(400).json({
         success: false,
-        message: "Title is required",
+        message: "Name and description are required",
       });
     }
 
-    if (!description) {
-      return res.status(400).json({
-        success: false,
-        message: "Description is required",
+    // Handle image uploads
+    const uploadedImages = [];
+
+    const files = Array.isArray(req.files?.images)
+      ? req.files.images
+      : [req.files?.images].filter(Boolean);
+
+    for (let file of files) {
+      const uploadResponse = await imagekit.upload({
+        file: file.data,      // buffer
+        fileName: file.name,
       });
+      uploadedImages.push(uploadResponse.url);
     }
 
-    let imageUrl = null;
-
-    // If a new file was uploaded
-    if (req.file) {
-      try {
-        const uploadResponse = await imagekitInstance.upload({
-          file: req.file.buffer,
-          fileName: `${Date.now()}-${req.file.originalname}`,
-          folder: "/home",
-          useUniqueFileName: true,
-        });
-
-        imageUrl = uploadResponse.url;
-      } catch (uploadError) {
-        console.error("ImageKit upload error:", uploadError);
-        return res.status(500).json({
-          success: false,
-          message: "Failed to upload image",
-        });
-      }
-    }
-
-    // If no image uploaded (only in update mode it's allowed)
-    if (!imageUrl && !req.params.id) {
-      return res.status(400).json({
-        success: false,
-        message: "Image is required",
-      });
-    }
-
-    const homeData = await homemodule.create({
-      title,
+    const newProduct = new Product({
+      name,
       description,
-      image: imageUrl,
+      images: uploadedImages,
     });
 
-    return res.status(201).json({
+    await newProduct.save();
+
+    res.status(201).json({
       success: true,
-      message: "Home content created successfully",
-      data: homeData,
+      message: "Product created successfully",
+      data: newProduct,
     });
+
   } catch (error) {
-    console.error("Error in homeController:", error);
-    return res.status(500).json({
+    console.error("Error creating product:", error);
+    res.status(500).json({
       success: false,
       message: "Internal server error",
-      error: error.message,
     });
   }
 };
+
+
+
 const getHomeData = async (req, res) => {
   try {
-    const homeData = await Home.find().sort({ createdAt: -1 });
-    return res.status(200).json({
+    const products = await Product.find().sort({ createdAt: -1 });
+
+    res.status(200).json({
       success: true,
-      data: homeData,
+      data: products,
     });
   } catch (error) {
-    console.error("Error in getHomeData:", error);
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
-      message: "Internal server error",
-      error: error.message,
+      message: "Failed to fetch products",
     });
   }
 };
+
 
 const updateHomeData = async (req, res) => {
   try {
@@ -169,7 +208,7 @@ const updateHomeData = async (req, res) => {
 };
 
 module.exports = {
-  homeController,
+  createContent,
   getHomeData,
   updateHomeData,
 };

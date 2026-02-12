@@ -1,14 +1,14 @@
 const router = require("express").Router();
 const {
  
-  homeController,
+  createContent,
   getHomeData,
     updateHomeData
 
 } = require("../../controller/Homecontroller/homecontroller.js");
 
-router.post("/homepost", homeController);
-router.get("/gethome", getHomeData);
+router.post("/create", createContent);
+router.get("/product", getHomeData);
 router.put("/updatehome/:id", updateHomeData);
 
 module.exports = router;

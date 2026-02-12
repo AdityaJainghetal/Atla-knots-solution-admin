@@ -11,7 +11,9 @@ import ProtectedRoute from './Component/ProtectedRoute';
 // import CreateHomeContent from './Pages/Home/homepage';
 import Createpost from './Pages/Home/Createpost';
 import ProductList from './Pages/product/ProductList';
-
+import ContactList from './Pages/contact/Contact';
+import Category from './Pages/category/category';
+import TechNews from './Pages/TechNews/TechNews';
 function App() {
   return (
     <BrowserRouter>
@@ -25,6 +27,9 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/homepage" element={<Createpost/>} />
             <Route path="/getpost" element={<ProductList/>} />
+            <Route path="/contact" element={<ContactList />} />
+            <Route path="/category" element={<Category/>} />
+            <Route path="/techcreate" element={<TechNews/>} />
           
           </Route>
         </Route>

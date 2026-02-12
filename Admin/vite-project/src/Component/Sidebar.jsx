@@ -1,24 +1,25 @@
 import { NavLink } from 'react-router-dom';
 import { 
   LayoutDashboard, 
-  Users, 
+  // Users, 
   ShoppingCart, 
   BarChart3, 
   Settings, 
   LogOut,
   Menu,
-  X
+  X,
+  Contact2Icon
 } from 'lucide-react';
 import { useState } from 'react';
 
 const navItems = [
   { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { path: "/users", label: "Users", icon: Users },
-  {path: "/homepage", label: "Home", icon: LayoutDashboard },
-  {path: "/getpost", label: "Home List", icon: LayoutDashboard },
-  { path: "/orders", label: "Orders", icon: ShoppingCart },
-  { path: "/analytics", label: "Analytics", icon: BarChart3 },
-  { path: "/settings", label: "Settings", icon: Settings, bottom: true },
+  // { path: "/users", label: "Users", icon: Users },
+  {path: "/homepage", label: "Create", icon: LayoutDashboard },
+  {path: "/getpost", label: "Show", icon: LayoutDashboard },
+  { path: "/contact", label: "Contact", icon: Contact2Icon },
+  { path: "/category", label: "Tech create", icon: BarChart3 },
+  { path: "/techcreate", label: "techcreate", icon: Settings},
 ];
 
 const Sidebar = () => {
@@ -44,7 +45,8 @@ const Sidebar = () => {
           {/* Logo */}
           <div className="p-6 border-b border-gray-800">
             <h1 className="text-2xl font-bold">
-              Admin<span className="text-blue-500">Panel</span>
+              AtlaKnots<span className="text-blue-500 gap-2"> 
+                Admin Panel</span>
             </h1>
           </div>
 
