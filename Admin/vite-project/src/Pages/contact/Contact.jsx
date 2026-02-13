@@ -7,7 +7,9 @@ const columns = [
     name: "Name",
     selector: (row) => row.usernamee,
     sortable: true,
-    cell: (row) => <div className="font-medium text-gray-900">{row.usernamee}</div>,
+    cell: (row) => (
+      <div className="font-medium text-gray-900">{row.usernamee}</div>
+    ),
   },
   {
     name: "Email",
@@ -127,7 +129,9 @@ const Contact = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`Server error: ${response.status} ${response.statusText}`);
+        throw new Error(
+          `Server error: ${response.status} ${response.statusText}`,
+        );
       }
 
       const result = await response.json();
@@ -181,16 +185,20 @@ const Contact = () => {
 
   const filteredItems = rowsWithDelete.filter(
     (item) =>
-      (item.usernamee?.toLowerCase() || "").includes(filterText.toLowerCase()) ||
+      (item.usernamee?.toLowerCase() || "").includes(
+        filterText.toLowerCase(),
+      ) ||
       (item.email?.toLowerCase() || "").includes(filterText.toLowerCase()) ||
       (item.phone?.toLowerCase() || "").includes(filterText.toLowerCase()) ||
-      (item.message?.toLowerCase() || "").includes(filterText.toLowerCase())
+      (item.message?.toLowerCase() || "").includes(filterText.toLowerCase()),
   );
 
   return (
     <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
       <div className="p-5 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h2 className="text-xl font-semibold text-gray-900">Contact Messages</h2>
+        <h2 className="text-xl font-semibold text-gray-900">
+          Contact Messages
+        </h2>
 
         <input
           type="text"

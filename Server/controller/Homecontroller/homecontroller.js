@@ -6,67 +6,7 @@ const Home = require("../../module/homemodule/homemodule"); // ← renamed to Ho
 const imagekit = require("../../utils/imagekit.js");
 const Product = require("../../module/homemodule/homemodule"); // ← renamed to Product
 
-//     if (!name || !description) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "Name and description are required",
-//       });
-//     }
 
-//     let imageUrl = "";
-
-//     // 🔹 Image upload (ImageKit)
-//     if (req.file) {
-//       try {
-//         const file = req.file;
-
-//         console.log("Uploading image:", {
-//           name: file.originalname,
-//           size: file.size,
-//           type: file.mimetype,
-//         });
-
-//         const base64String = file.buffer.toString("base64");
-
-//         const uploadRes = await imagekit.upload({
-//           file: base64String,
-//           fileName: `content-${Date.now()}-${file.originalname}`,
-//           folder: "contentImages",
-//           overwriteFile: true,
-//         });
-
-//         imageUrl = uploadRes.url;
-//         console.log("✅ Image uploaded:", imageUrl);
-//       } catch (imgErr) {
-//         console.error("❌ ImageKit error:", imgErr);
-//         return res.status(500).json({
-//           success: false,
-//           message: "Image upload failed",
-//         });
-//       }
-//     }
-
-//     // 🔹 Save in DB
-//     const newContent = await Home.create({
-//       name,
-//       description,
-//       image: imageUrl,
-//       creator: userId,
-//     });
-
-//     return res.status(201).json({
-//       success: true,
-//       message: "Content created successfully",
-//       data: newContent,
-//     });
-//   } catch (error) {
-//     console.error("createContent error:", error);
-//     return res.status(500).json({
-//       success: false,
-//       message: error.message || "Server error",
-//     });
-//   }
-// };
 const createContent = async (req, res) => {
   try {
     const { name, description } = req.body;
@@ -134,42 +74,31 @@ const getHomeData = async (req, res) => {
   }
 };
 
-
 const updateHomeData = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description } = req.body;
+    const { name, description } = req.body;
 
     const updateFields = {};
-    if (title?.trim()) updateFields.title = title.trim();
-    if (description?.trim()) updateFields.description = description.trim();
 
-    // Optional: handle image update
-    let imageUrl = null;
+    if (name?.trim()) updateFields.name = name.trim();
+    if (description?.trim()) {
+      updateFields.description = description.trim();
+    }
 
-    if (req.file) {
-      const file = req.file;
+    // 🔥 EXPRESS-FILEUPLOAD FIX
+    if (req.files && req.files.image) {
+      const file = req.files.image;
+
       const uploadRes = await imagekit.upload({
-        file: file.buffer,
-        fileName: `home-update-${Date.now()}-${file.originalname}`,
-        folder: "/homeImages",
+        file: file.data, // buffer from express-fileupload
+        fileName: `product-update-${Date.now()}-${file.name}`,
+        folder: "/productImages",
         useUniqueFileName: true,
       });
-      imageUrl = uploadRes.url;
-      updateFields.image = imageUrl;
-    } else if (req.body.image && typeof req.body.image === "string") {
-      let base64Data = req.body.image;
-      if (base64Data.startsWith("data:image")) {
-        base64Data = base64Data.split(",")[1];
-      }
-      const uploadRes = await imagekit.upload({
-        file: base64Data,
-        fileName: `home-update-base64-${Date.now()}.jpg`,
-        folder: "/homeImages",
-        useUniqueFileName: true,
-      });
-      imageUrl = uploadRes.url;
-      updateFields.image = imageUrl;
+
+      // IMPORTANT: must update images array
+      updateFields.images = [uploadRes.url];
     }
 
     if (Object.keys(updateFields).length === 0) {
@@ -179,26 +108,27 @@ const updateHomeData = async (req, res) => {
       });
     }
 
-    const updatedData = await Home.findByIdAndUpdate(
+    const updatedProduct = await Product.findByIdAndUpdate(
       id,
       { $set: updateFields },
-      { new: true, runValidators: true }
+      { new: true }
     );
 
-    if (!updatedData) {
+    if (!updatedProduct) {
       return res.status(404).json({
         success: false,
-        message: "Home content not found",
+        message: "Product not found",
       });
     }
 
     return res.status(200).json({
       success: true,
-      message: "Home content updated successfully",
-      data: updatedData,
+      message: "Product updated successfully",
+      data: updatedProduct,
     });
+
   } catch (error) {
-    console.error("Error in updateHomeData:", error);
+    console.error("Update Error:", error);
     return res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -207,8 +137,108 @@ const updateHomeData = async (req, res) => {
   }
 };
 
+
+
+// const updateHomeData = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const { title, description } = req.body;
+
+//     const updateFields = {};
+//     if (title?.trim()) updateFields.title = title.trim();
+//     if (description?.trim()) updateFields.description = description.trim();
+//     let imageUrl = null;
+
+//     if (req.file) {
+//       const file = req.file;
+//       const uploadRes = await imagekit.upload({
+//         file: file.buffer,
+//         fileName: `home-update-${Date.now()}-${file.originalname}`,
+//         folder: "/homeImages",
+//         useUniqueFileName: true,
+//       });
+//       imageUrl = uploadRes.url;
+//       updateFields.image = imageUrl;
+//     } else if (req.body.image && typeof req.body.image === "string") {
+//       let base64Data = req.body.image;
+//       if (base64Data.startsWith("data:image")) {
+//         base64Data = base64Data.split(",")[1];
+//       }
+//       const uploadRes = await imagekit.upload({
+//         file: base64Data,
+//         fileName: `home-update-base64-${Date.now()}.jpg`,
+//         folder: "/homeImages",
+//         useUniqueFileName: true,
+//       });
+//       imageUrl = uploadRes.url;
+//       updateFields.image = imageUrl;
+//     }
+
+//     if (Object.keys(updateFields).length === 0) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "No fields to update",
+//       });
+//     }
+
+//     const updatedData = await Home.findByIdAndUpdate(
+//       id,
+//       { $set: updateFields },
+//       { new: true, runValidators: true }
+//     );
+
+//     if (!updatedData) {
+//       return res.status(404).json({
+//         success: false,
+//         message: "Home content not found",
+//       });
+//     }
+
+//     return res.status(200).json({
+//       success: true,
+//       message: "Home content updated successfully",
+//       data: updatedData,
+//     });
+//   } catch (error) {
+//     console.error("Error in updateHomeData:", error);
+//     return res.status(500).json({
+//       success: false,
+//       message: "Internal server error",
+//       error: error.message,
+//     });
+//   }
+// };
+const deletedContent = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedProduct = await Product.findByIdAndDelete(id);
+
+    if (!deletedProduct) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Product deleted successfully",
+      data: deletedProduct,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete product",
+    });
+  }
+};
+
+
 module.exports = {
   createContent,
   getHomeData,
+  deletedContent,
   updateHomeData,
 };

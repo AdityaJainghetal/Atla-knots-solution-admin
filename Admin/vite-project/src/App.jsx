@@ -14,6 +14,8 @@ import ProductList from './Pages/product/ProductList';
 import ContactList from './Pages/contact/Contact';
 import Category from './Pages/category/category';
 import TechNews from './Pages/TechNews/TechNews';
+import TechCategory from './Pages/technology/category';
+import Technology from './Pages/technology/technology';
 function App() {
   return (
     <BrowserRouter>
@@ -30,6 +32,8 @@ function App() {
             <Route path="/contact" element={<ContactList />} />
             <Route path="/category" element={<Category/>} />
             <Route path="/techcreate" element={<TechNews/>} />
+            <Route path="/techcategory" element={<TechCategory/>}/>
+            <Route path="/technology" element={<Technology/>}/>
           
           </Route>
         </Route>

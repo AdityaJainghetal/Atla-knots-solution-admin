@@ -8,18 +8,20 @@ import {
   LogOut,
   Menu,
   X,
-  Contact2Icon
+  Contact2Icon,
+  TextSearchIcon
 } from 'lucide-react';
 import { useState } from 'react';
 
 const navItems = [
   { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  // { path: "/users", label: "Users", icon: Users },
   {path: "/homepage", label: "Create", icon: LayoutDashboard },
   {path: "/getpost", label: "Show", icon: LayoutDashboard },
   { path: "/contact", label: "Contact", icon: Contact2Icon },
-  { path: "/category", label: "Tech create", icon: BarChart3 },
-  { path: "/techcreate", label: "techcreate", icon: Settings},
+  { path: "/category", label: "Category", icon: BarChart3 },
+  { path: "/techcategory", label: "TechCategory", icon: BarChart3 },
+  { path: "/technology", label: "Technology", icon: BarChart3 },
+  { path: "/techcreate", label: "techcreate", icon: TextSearchIcon},
 ];
 
 const Sidebar = () => {

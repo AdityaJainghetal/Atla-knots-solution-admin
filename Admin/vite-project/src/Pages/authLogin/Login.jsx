@@ -129,7 +129,7 @@
 //           </form>
 
 //           {/* Footer links */}
-         
+
 //         </div>
 //       </div>
 //     </div>
@@ -138,17 +138,16 @@
 
 // export default Login;
 
-
 // src/pages/Login.jsx
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { LogIn, Mail, Lock, AlertCircle } from 'lucide-react';
-import { toast } from 'react-toastify';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { LogIn, Mail, Lock, AlertCircle } from "lucide-react";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -168,10 +167,10 @@ const Login = () => {
     const toastId = toast.loading("Logging in...");
 
     try {
-      const response = await fetch('http://localhost:8000/api/auth/login', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8000/api/auth/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -179,11 +178,11 @@ const Login = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
+        throw new Error(data.message || "Login failed");
       }
 
       // Save token
-      localStorage.setItem('token', data.token);
+      localStorage.setItem("token", data.token);
 
       // Success notification
       toast.update(toastId, {
@@ -195,9 +194,8 @@ const Login = () => {
 
       // Small delay for user to see success message
       setTimeout(() => {
-        navigate('/dashboard', { replace: true });
+        navigate("/dashboard", { replace: true });
       }, 800);
-
     } catch (err) {
       // Error notification
       toast.update(toastId, {
@@ -228,11 +226,17 @@ const Login = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Email
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                <Mail
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                  size={20}
+                />
                 <input
                   id="email"
                   name="email"
@@ -249,11 +253,17 @@ const Login = () => {
 
             {/* Password */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                <Lock
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                  size={20}
+                />
                 <input
                   id="password"
                   name="password"
@@ -273,7 +283,7 @@ const Login = () => {
               type="submit"
               disabled={loading}
               className={`w-full py-3 px-4 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition flex items-center justify-center gap-2 ${
-                loading ? 'opacity-70 cursor-not-allowed' : ''
+                loading ? "opacity-70 cursor-not-allowed" : ""
               }`}
             >
               {loading ? (
@@ -282,7 +292,7 @@ const Login = () => {
                   <span>Signing in...</span>
                 </>
               ) : (
-                'Sign In'
+                "Sign In"
               )}
             </button>
           </form>
@@ -290,8 +300,11 @@ const Login = () => {
           {/* Footer links */}
           <div className="mt-6 text-center text-sm text-gray-600">
             <p>
-              Don't have an account?{' '}
-              <a href="/register" className="text-blue-600 hover:underline font-medium">
+              Don't have an account?{" "}
+              <a
+                href="/register"
+                className="text-blue-600 hover:underline font-medium"
+              >
                 Sign up
               </a>
             </p>

@@ -11,9 +11,7 @@ export const createCategoryApi = (data) => API.post("/create", data);
 export const getCategoriesApi = () => API.get("/");
 
 // UPDATE
-export const updateCategoryApi = (id, data) =>
-  API.put(`/update/${id}`, data);
+export const updateCategoryApi = (id, data) => API.put(`/update/${id}`, data);
 
 // DELETE
-export const deleteCategoryApi = (id) =>
-  API.delete(`/${id}`);
+export const deleteCategoryApi = (id) => API.delete(`/${id}`);
