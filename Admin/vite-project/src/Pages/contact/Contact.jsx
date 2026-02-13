@@ -119,14 +119,17 @@ const Contact = () => {
       setLoading(true);
       setError(null);
 
-      const response = await fetch("http://localhost:8000/api/contact", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          // Add authorization if your API is protected
-          // "Authorization": `Bearer ${token}`,
+      const response = await fetch(
+        "https://atla-knots-solution-admin-1.onrender.com/api/contact",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            // Add authorization if your API is protected
+            // "Authorization": `Bearer ${token}`,
+          },
         },
-      });
+      );
 
       if (!response.ok) {
         throw new Error(
@@ -156,13 +159,16 @@ const Contact = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8000/api/contact/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          // "Authorization": `Bearer ${token}`,
+      const response = await fetch(
+        `https://atla-knots-solution-admin-1.onrender.com/api/contact/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            // "Authorization": `Bearer ${token}`,
+          },
         },
-      });
+      );
 
       if (!response.ok) {
         throw new Error("Failed to delete contact");

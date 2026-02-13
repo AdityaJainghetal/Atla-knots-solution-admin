@@ -26,7 +26,7 @@
 //     setLoading(true);
 
 //     try {
-//       const response = await fetch('http://localhost:8000/api/auth/login', {
+//       const response = await fetch('https://atla-knots-solution-admin-1.onrender.com/api/auth/login', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -167,13 +167,16 @@ const Login = () => {
     const toastId = toast.loading("Logging in...");
 
     try {
-      const response = await fetch("http://localhost:8000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "https://atla-knots-solution-admin-1.onrender.com/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         },
-        body: JSON.stringify(formData),
-      });
+      );
 
       const data = await response.json();
 
