@@ -1,7 +1,9 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LogIn, Mail, Lock, AlertCircle } from "lucide-react";
+import { LogIn, Mail, Lock } from "lucide-react";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -26,22 +28,17 @@ const Login = () => {
     const toastId = toast.loading("Logging in...");
 
     try {
-      const response = await fetch(
+      const response = await axios.post(
         "https://atla-knots-solution-admin-1.onrender.com/api/auth/login",
+        formData,
         {
-          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
-        },
+        }
       );
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Login failed");
-      }
+      const data = response.data;
 
       // Save token
       localStorage.setItem("token", data.token);
@@ -59,9 +56,14 @@ const Login = () => {
         navigate("/dashboard", { replace: true });
       }, 800);
     } catch (err) {
-      // Error notification
+      // Handle axios error properly
+      const errorMessage =
+        err.response?.data?.message ||
+        err.message ||
+        "Something went wrong! Please try again.";
+
       toast.update(toastId, {
-        render: err.message || "Something went wrong!",
+        render: errorMessage,
         type: "error",
         isLoading: false,
         autoClose: 5000,
