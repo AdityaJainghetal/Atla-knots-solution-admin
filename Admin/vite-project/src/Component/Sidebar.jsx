@@ -22,6 +22,7 @@ const navItems = [
   { path: "/techcategory", label: "TechCategory", icon: BarChart3 },
   { path: "/technology", label: "Technology", icon: BarChart3 },
   { path: "/techcreate", label: "techcreate", icon: TextSearchIcon},
+  {path: "/queries", label: "Queries", icon: TextSearchIcon, bottom: true },
 ];
 
 const Sidebar = () => {

@@ -10,6 +10,8 @@ const {
 
 router.post("/create", createContent);
 router.get("/product", getHomeData);
+router.get("/users", getHomeData);
+
 router.delete("/product/:id",deletedContent)
 router.put("/updatehome/:id", updateHomeData);
 

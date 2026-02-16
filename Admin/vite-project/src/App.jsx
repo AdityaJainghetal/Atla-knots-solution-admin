@@ -16,6 +16,7 @@ import Category from './Pages/category/category';
 import TechNews from './Pages/TechNews/TechNews';
 import TechCategory from './Pages/technology/category';
 import Technology from './Pages/technology/technology';
+import QueriesTable from './Pages/query/QueriesTable';
 function App() {
   return (
     <BrowserRouter>
@@ -34,6 +35,7 @@ function App() {
             <Route path="/techcreate" element={<TechNews/>} />
             <Route path="/techcategory" element={<TechCategory/>}/>
             <Route path="/technology" element={<Technology/>}/>
+            <Route path="/queries" element={<QueriesTable />} />
           
           </Route>
         </Route>
