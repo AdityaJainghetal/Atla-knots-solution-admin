@@ -1,98 +1,498 @@
-import { NavLink } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  // Users, 
-  ShoppingCart, 
-  BarChart3, 
-  Settings, 
+// import { NavLink } from 'react-router-dom';
+// import {
+//   LayoutDashboard,
+//   // Users,
+//   ShoppingCart,
+//   BarChart3,
+//   Settings,
+//   LogOut,
+//   Menu,
+//   X,
+//   Contact2Icon,
+//   TextSearchIcon
+// } from 'lucide-react';
+// import { useState } from 'react';
+
+// const navItems = [
+//   { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+//   {path: "/homepage", label: "Create", icon: LayoutDashboard },
+//   {path: "/getpost", label: "Show", icon: LayoutDashboard },
+//   { path: "/contact", label: "Contact", icon: Contact2Icon },
+//   { path: "/category", label: "Category", icon: BarChart3 },
+//   { path: "/techcategory", label: "TechCategory", icon: BarChart3 },
+//   { path: "/technology", label: "Technology", icon: BarChart3 },
+//   { path: "/techcreate", label: "techcreate", icon: TextSearchIcon},
+//   {path: "/queries", label: "Queries", icon: TextSearchIcon, bottom: true },
+// ];
+
+// const Sidebar = () => {
+//   const [isOpen, setIsOpen] = useState(false);
+
+//   return (
+//     <>
+//       {/* Mobile toggle button */}
+//       <button
+//         className="fixed top-4 left-4 z-50 lg:hidden p-2 rounded-md bg-gray-800 text-white"
+//         onClick={() => setIsOpen(!isOpen)}
+//       >
+//         {isOpen ? <X size={24} /> : <Menu size={24} />}
+//       </button>
+
+//       {/* Sidebar */}
+//       <aside
+//         className={`fixed inset-y-0 left-0 z-40 w-64 bg-gray-900 text-white transform transition-transform duration-300 lg:translate-x-0 ${
+//           isOpen ? 'translate-x-0' : '-translate-x-full'
+//         } lg:relative lg:block`}
+//       >
+//         <div className="flex flex-col h-full">
+//           {/* Logo */}
+//           <div className="p-6 border-b border-gray-800">
+//             <h1 className="text-2xl font-bold">
+//               AtlaKnots<span className="text-blue-500 gap-2">
+//                 Admin Panel</span>
+//             </h1>
+//           </div>
+
+//           {/* Navigation */}
+//           <nav className="flex-1 px-3 py-6 space-y-1 overflow-y-auto">
+//             {navItems.map((item) => (
+//               <NavLink
+//                 key={item.path}
+//                 to={item.path}
+//                 onClick={() => setIsOpen(false)} // close on mobile
+//                 className={({ isActive }) =>
+//                   `flex items-center px-4 py-3 rounded-lg transition-colors ${
+//                     isActive
+//                       ? 'bg-gray-800 text-white'
+//                       : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+//                   } ${item.bottom ? 'mt-auto' : ''}`
+//                 }
+//               >
+//                 <item.icon size={20} className="mr-3" />
+//                 <span>{item.label}</span>
+//               </NavLink>
+//             ))}
+//           </nav>
+
+//           {/* Logout */}
+//           <div className="p-4 border-t border-gray-800">
+//             <button className="flex items-center w-full px-4 py-3 text-red-400 hover:bg-gray-800 hover:text-red-300 rounded-lg transition-colors">
+//               <LogOut size={20} className="mr-3" />
+//               <span>Logout</span>
+//             </button>
+//           </div>
+//         </div>
+//       </aside>
+
+//       {/* Mobile overlay */}
+//       {isOpen && (
+//         <div
+//           className="fixed inset-0 bg-black/60 z-30 lg:hidden"
+//           onClick={() => setIsOpen(false)}
+//         />
+//       )}
+//     </>
+//   );
+// };
+
+// export default Sidebar;
+
+// import { NavLink } from "react-router-dom";
+// import {
+//   LayoutDashboard,
+//   BarChart3,
+//   ChevronDown,
+//   ChevronRight,
+//   Contact2,
+//   TextSearch,
+//   LogOut,
+//   Menu,
+//   X,
+// } from "lucide-react";
+// import { useState } from "react";
+// import clsx from "clsx";
+
+// // ────────────────────────────────────────────────
+// const navItems = [
+//   { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+//   { path: "/homepage", label: "Create", icon: LayoutDashboard },
+//   { path: "/getpost", label: "Show", icon: LayoutDashboard },
+//   { path: "/contact", label: "Contact", icon: Contact2 },
+
+//   // ─── Tech Section (will be dropdown) ───
+//   {
+//     label: "Technology",
+//     icon: BarChart3,
+//     children: [
+//       { path: "/techcategory", label: "Tech Category", icon: BarChart3 },
+//       { path: "/technology", label: "All Technologies", icon: BarChart3 },
+//     ],
+//   },
+
+//   {
+//     label: "TechNews",
+//     icon: BarChart3,
+//     children: [
+//       { path: "/techcreate", label: "Create Tech", icon: TextSearch },
+//       { path: "/category", label: "Category", icon: BarChart3 },
+//     ],
+//   },
+
+//   { path: "/queries", label: "Queries", icon: TextSearch, bottom: true },
+// ];
+
+// export default function Sidebar() {
+//   const [isOpen, setIsOpen] = useState(false);
+//   const [techOpen, setTechOpen] = useState(true); // default open – change to false if you want collapsed by default
+
+//   const toggleSidebar = () => setIsOpen((p) => !p);
+//   const closeSidebar = () => setIsOpen(false);
+
+//   return (
+//     <>
+//       {/* Mobile toggle */}
+//       <button
+//         type="button"
+//         aria-label="Toggle sidebar"
+//         className="fixed top-4 left-4 z-50 lg:hidden p-2.5 rounded-lg bg-gray-800/90 backdrop-blur-sm text-white shadow-md hover:bg-gray-700 transition-colors"
+//         onClick={toggleSidebar}
+//       >
+//         {isOpen ? <X size={24} /> : <Menu size={24} />}
+//       </button>
+
+//       {isOpen && (
+//         <div
+//           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 lg:hidden"
+//           onClick={closeSidebar}
+//           aria-hidden="true"
+//         />
+//       )}
+
+//       {/* Sidebar */}
+//       <aside
+//         className={clsx(
+//           "fixed inset-y-0 left-0 z-40 w-72 bg-gradient-to-b from-gray-950 to-gray-900 text-gray-100",
+//           "transform transition-transform duration-300 ease-in-out",
+//           "lg:translate-x-0 lg:relative lg:block",
+//           isOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full",
+//         )}
+//       >
+//         <div className="flex flex-col h-full">
+//           {/* Logo */}
+//           <div className="p-6 border-b border-gray-800/60">
+//             <h1 className="text-2xl font-bold tracking-tight">
+//               AtlaKnots<span className="text-blue-500 ml-1.5">Admin</span>
+//             </h1>
+//             <p className="text-xs text-gray-500 mt-1">Management Panel</p>
+//           </div>
+
+//           {/* Navigation */}
+//           <nav className="flex-1 px-3 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
+//             <div className="space-y-1.5">
+//               {navItems.map((item, index) =>
+//                 item.children ? (
+//                   // ─── Dropdown / Collapsible Section ───
+//                   <div key={index}>
+//                     <button
+//                       type="button"
+//                       onClick={() => setTechOpen(!techOpen)}
+//                       className={clsx(
+//                         "group flex w-full items-center justify-between gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all",
+//                         "text-gray-300 hover:bg-gray-800/60 hover:text-gray-100",
+//                       )}
+//                     >
+//                       <div className="flex items-center gap-3">
+//                         <item.icon
+//                           size={20}
+//                           strokeWidth={2.1}
+//                           className="shrink-0"
+//                         />
+//                         <span>{item.label}</span>
+//                       </div>
+//                       {techOpen ? (
+//                         <ChevronDown
+//                           size={18}
+//                           className="transition-transform"
+//                         />
+//                       ) : (
+//                         <ChevronRight
+//                           size={18}
+//                           className="transition-transform"
+//                         />
+//                       )}
+//                     </button>
+
+//                     {/* Sub items – only shown when open */}
+//                     {techOpen && (
+//                       <div className="ml-6 mt-1 space-y-1 border-l border-gray-800/50 pl-3">
+//                         {item.children.map((child) => (
+//                           <NavLink
+//                             key={child.path}
+//                             to={child.path}
+//                             onClick={closeSidebar}
+//                             className={({ isActive }) =>
+//                               clsx(
+//                                 "flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all",
+//                                 isActive
+//                                   ? "bg-gray-800/80 text-white"
+//                                   : "text-gray-400 hover:bg-gray-800/50 hover:text-gray-200",
+//                               )
+//                             }
+//                           >
+//                             <child.icon
+//                               size={18}
+//                               strokeWidth={2}
+//                               className="shrink-0"
+//                             />
+//                             <span>{child.label}</span>
+//                           </NavLink>
+//                         ))}
+//                       </div>
+//                     )}
+//                   </div>
+//                 ) : (
+//                   // Normal item
+//                   <NavLink
+//                     key={item.path}
+//                     to={item.path}
+//                     onClick={closeSidebar}
+//                     className={({ isActive }) =>
+//                       clsx(
+//                         "group flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all",
+//                         isActive
+//                           ? "bg-gray-800/80 text-white shadow-sm"
+//                           : "text-gray-400 hover:bg-gray-800/60 hover:text-gray-100",
+//                         item.bottom ? "mt-4" : "",
+//                       )
+//                     }
+//                   >
+//                     <item.icon
+//                       size={20}
+//                       strokeWidth={2.1}
+//                       className="shrink-0"
+//                     />
+//                     <span>{item.label}</span>
+//                   </NavLink>
+//                 ),
+//               )}
+//             </div>
+//           </nav>
+
+//           {/* Bottom – Logout */}
+//           <div className="mt-auto border-t border-gray-800/60 p-4">
+//             <button
+//               type="button"
+//               className="flex w-full items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-red-400 hover:bg-red-950/30 hover:text-red-300 transition-all"
+//               onClick={() => {
+//                 console.log("Logout clicked");
+//                 closeSidebar();
+//               }}
+//             >
+//               <LogOut size={20} strokeWidth={2.1} className="shrink-0" />
+//               <span>Logout</span>
+//             </button>
+//           </div>
+//         </div>
+//       </aside>
+//     </>
+//   );
+// }
+
+
+import { NavLink, useNavigate } from "react-router-dom";
+import {
+  LayoutDashboard,
+  BarChart3,
+  ChevronDown,
+  ChevronRight,
+  Contact2,
+  TextSearch,
   LogOut,
   Menu,
   X,
-  Contact2Icon,
-  TextSearchIcon
-} from 'lucide-react';
-import { useState } from 'react';
+} from "lucide-react";
+import { useState } from "react";
+import clsx from "clsx";
 
+// ────────────────────────────────────────────────
 const navItems = [
   { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  {path: "/homepage", label: "Create", icon: LayoutDashboard },
-  {path: "/getpost", label: "Show", icon: LayoutDashboard },
-  { path: "/contact", label: "Contact", icon: Contact2Icon },
-  { path: "/category", label: "Category", icon: BarChart3 },
-  { path: "/techcategory", label: "TechCategory", icon: BarChart3 },
-  { path: "/technology", label: "Technology", icon: BarChart3 },
-  { path: "/techcreate", label: "techcreate", icon: TextSearchIcon},
-  {path: "/queries", label: "Queries", icon: TextSearchIcon, bottom: true },
+  { path: "/homepage", label: "Create", icon: LayoutDashboard },
+  { path: "/getpost", label: "Show", icon: LayoutDashboard },
+  { path: "/contact", label: "Contact", icon: Contact2 },
+
+  {
+    label: "Technology",
+    icon: BarChart3,
+    children: [
+      { path: "/techcategory", label: "Tech Category", icon: BarChart3 },
+      { path: "/technology", label: "All Technologies", icon: BarChart3 },
+    ],
+  },
+
+  {
+    label: "TechNews",
+    icon: BarChart3,
+    children: [
+      { path: "/techcreate", label: "Create Tech", icon: TextSearch },
+      { path: "/category", label: "Category", icon: BarChart3 },
+    ],
+  },
+
+  { path: "/queries", label: "Queries", icon: TextSearch, bottom: true },
 ];
 
-const Sidebar = () => {
+export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [techOpen, setTechOpen] = useState(true);
+  const [newsOpen, setNewsOpen] = useState(true);
+
+  const navigate = useNavigate();
+
+  const toggleSidebar = () => setIsOpen((p) => !p);
+  const closeSidebar = () => setIsOpen(false);
+
+  const handleLogout = () => {
+    // → Here you can add real logout logic later (clear token, redux reset, etc.)
+    console.log("User logged out");
+    navigate("/", { replace: true }); // Redirect to home page
+    closeSidebar();
+  };
 
   return (
     <>
       {/* Mobile toggle button */}
       <button
-        className="fixed top-4 left-4 z-50 lg:hidden p-2 rounded-md bg-gray-800 text-white"
-        onClick={() => setIsOpen(!isOpen)}
+        type="button"
+        aria-label="Toggle sidebar"
+        className="fixed top-4 left-4 z-50 lg:hidden p-2.5 rounded-lg bg-gray-800/90 backdrop-blur-sm text-white shadow-md hover:bg-gray-700 transition-colors"
+        onClick={toggleSidebar}
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 lg:hidden"
+          onClick={closeSidebar}
+          aria-hidden="true"
+        />
+      )}
+
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 w-64 bg-gray-900 text-white transform transition-transform duration-300 lg:translate-x-0 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        } lg:relative lg:block`}
+        className={clsx(
+          "fixed inset-y-0 left-0 z-40 w-72 bg-gradient-to-b from-gray-950 to-gray-900 text-gray-100",
+          "transform transition-transform duration-300 ease-in-out",
+          "lg:translate-x-0 lg:relative lg:block",
+          isOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
+        )}
       >
         <div className="flex flex-col h-full">
-          {/* Logo */}
-          <div className="p-6 border-b border-gray-800">
-            <h1 className="text-2xl font-bold">
-              AtlaKnots<span className="text-blue-500 gap-2"> 
-                Admin Panel</span>
+          {/* Logo / Header */}
+          <div className="p-6 border-b border-gray-800/60">
+            <h1 className="text-2xl font-bold tracking-tight">
+              AtlaKnots<span className="text-blue-500 ml-1.5">Admin</span>
             </h1>
+            <p className="text-xs text-gray-500 mt-1">Management Panel</p>
           </div>
 
-          {/* Navigation */}
-          <nav className="flex-1 px-3 py-6 space-y-1 overflow-y-auto">
-            {navItems.map((item) => (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                onClick={() => setIsOpen(false)} // close on mobile
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-3 rounded-lg transition-colors ${
-                    isActive
-                      ? 'bg-gray-800 text-white'
-                      : 'text-gray-300 hover:bg-gray-800 hover:text-white'
-                  } ${item.bottom ? 'mt-auto' : ''}`
+          {/* Navigation Links */}
+          <nav className="flex-1 px-3 py-5 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
+            <div className="space-y-1.5">
+              {navItems.map((item, index) => {
+                if (item.children) {
+                  const isTech = item.label === "Technology";
+                  const isOpen = isTech ? techOpen : newsOpen;
+                  const toggle = isTech
+                    ? () => setTechOpen((p) => !p)
+                    : () => setNewsOpen((p) => !p);
+
+                  return (
+                    <div key={index}>
+                      <button
+                        type="button"
+                        onClick={toggle}
+                        className={clsx(
+                          "group flex w-full items-center justify-between gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all",
+                          "text-gray-300 hover:bg-gray-800/60 hover:text-gray-100"
+                        )}
+                      >
+                        <div className="flex items-center gap-3">
+                          <item.icon size={20} strokeWidth={2.1} className="shrink-0" />
+                          <span>{item.label}</span>
+                        </div>
+                        {isOpen ? (
+                          <ChevronDown size={18} className="transition-transform duration-200" />
+                        ) : (
+                          <ChevronRight size={18} className="transition-transform duration-200" />
+                        )}
+                      </button>
+
+                      {isOpen && (
+                        <div className="ml-6 mt-1 space-y-1 border-l border-gray-800/50 pl-3">
+                          {item.children.map((child) => (
+                            <NavLink
+                              key={child.path}
+                              to={child.path}
+                              onClick={closeSidebar}
+                              className={({ isActive }) =>
+                                clsx(
+                                  "flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all",
+                                  isActive
+                                    ? "bg-gray-800/80 text-white"
+                                    : "text-gray-400 hover:bg-gray-800/50 hover:text-gray-200"
+                                )
+                              }
+                            >
+                              <child.icon size={18} strokeWidth={2} className="shrink-0" />
+                              <span>{child.label}</span>
+                            </NavLink>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
                 }
-              >
-                <item.icon size={20} className="mr-3" />
-                <span>{item.label}</span>
-              </NavLink>
-            ))}
+
+                return (
+                  <NavLink
+                    key={item.path}
+                    to={item.path}
+                    onClick={closeSidebar}
+                    className={({ isActive }) =>
+                      clsx(
+                        "group flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all",
+                        isActive
+                          ? "bg-gray-800/80 text-white shadow-sm"
+                          : "text-gray-400 hover:bg-gray-800/60 hover:text-gray-100",
+                        item.bottom ? "mt-6" : ""
+                      )
+                    }
+                  >
+                    <item.icon size={20} strokeWidth={2.1} className="shrink-0" />
+                    <span>{item.label}</span>
+                  </NavLink>
+                );
+              })}
+            </div>
           </nav>
 
-          {/* Logout */}
-          <div className="p-4 border-t border-gray-800">
-            <button className="flex items-center w-full px-4 py-3 text-red-400 hover:bg-gray-800 hover:text-red-300 rounded-lg transition-colors">
-              <LogOut size={20} className="mr-3" />
+          {/* Logout Section */}
+          <div className="mt-auto border-t border-gray-800/60 p-4">
+            <div className="pt-2 border-t border-gray-700/50 mt-2" /> {/* optional visual separator */}
+
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="flex w-full items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-red-400 hover:bg-red-950/30 hover:text-red-300 transition-all"
+            >
+              <LogOut size={20} strokeWidth={2.1} className="shrink-0" />
               <span>Logout</span>
             </button>
           </div>
         </div>
       </aside>
-
-      {/* Mobile overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/60 z-30 lg:hidden"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
     </>
   );
-};
-
-export default Sidebar;
+}
