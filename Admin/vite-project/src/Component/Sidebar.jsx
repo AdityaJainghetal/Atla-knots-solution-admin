@@ -355,6 +355,8 @@ export default function Sidebar() {
   const handleLogout = () => {
     // → Here you can add real logout logic later (clear token, redux reset, etc.)
     console.log("User logged out");
+    localStorage.removeItem("token"); // Clear token on logout
+    localStorage.clear(); // Clear all local storage (optional, depending on your needs)
     navigate("/", { replace: true }); // Redirect to home page
     closeSidebar();
   };

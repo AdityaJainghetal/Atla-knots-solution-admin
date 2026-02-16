@@ -361,6 +361,7 @@ import {
   Package,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import axios from "axios";
 import {
   LineChart,
   Line,
@@ -395,7 +396,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        // Fetch all APIs in parallel
+        // Fetch all APIs in parallel using axios
         const [
           usersRes,
           queriesRes,
@@ -403,37 +404,33 @@ const Dashboard = () => {
           techProductsRes,
           techCategoriesRes,
         ] = await Promise.all([
-          fetch(
-            "https://atla-knots-solution-admin-1.onrender.com/api/users",
-          ).catch((err) => ({
-            ok: false,
-          })),
-          fetch("https://atla-knots-solution-admin-1.onrender.com/query").catch(
-            (err) => ({ ok: false }),
-          ),
-          fetch(
-            "https://atla-knots-solution-admin-1.onrender.com/api/contact",
-          ).catch((err) => ({
-            ok: false,
-          })),
-          fetch(
-            "https://atla-knots-solution-admin-1.onrender.com/api/technology/product",
-          ).catch((err) => ({ ok: false })),
-          fetch(
-            "https://atla-knots-solution-admin-1.onrender.com/api/technology/category",
-          ).catch((err) => ({ ok: false })),
+          axios
+            .get("https://atla-knots-solution-admin-1.onrender.com/api/users")
+            .catch(() => ({ data: null })),
+          axios
+            .get("https://atla-knots-solution-admin-1.onrender.com/query")
+            .catch(() => ({ data: null })),
+          axios
+            .get("https://atla-knots-solution-admin-1.onrender.com/api/contact")
+            .catch(() => ({ data: null })),
+          axios
+            .get(
+              "https://atla-knots-solution-admin-1.onrender.com/api/technology/product",
+            )
+            .catch(() => ({ data: null })),
+          axios
+            .get(
+              "https://atla-knots-solution-admin-1.onrender.com/api/technology/category",
+            )
+            .catch(() => ({ data: null })),
         ]);
 
-        // Parse responses
-        const usersData = usersRes.ok ? await usersRes.json() : null;
-        const queriesData = queriesRes.ok ? await queriesRes.json() : null;
-        const contactsData = contactsRes.ok ? await contactsRes.json() : null;
-        const techProductsData = techProductsRes.ok
-          ? await techProductsRes.json()
-          : null;
-        const techCategoriesData = techCategoriesRes.ok
-          ? await techCategoriesRes.json()
-          : null;
+        // Extract data from axios responses
+        const usersData = usersRes?.data || null;
+        const queriesData = queriesRes?.data || null;
+        const contactsData = contactsRes?.data || null;
+        const techProductsData = techProductsRes?.data || null;
+        const techCategoriesData = techCategoriesRes?.data || null;
 
         console.log("Users:", usersData);
         console.log("Queries:", queriesData);
