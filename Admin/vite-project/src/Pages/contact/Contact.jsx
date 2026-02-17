@@ -121,7 +121,7 @@ const Contact = () => {
       setError(null);
 
       const response = await axios.get(
-        "https://bitzo-server-1.onrender.com/api/contact",
+        "https://atla-knots-solution-admin-2.onrender.com/api/contact",
       );
 
       const result = response.data;
@@ -147,7 +147,7 @@ const Contact = () => {
 
     try {
       await axios.delete(
-        `https://bitzo-server-1.onrender.com/api/contact/${id}`,
+        `https://atla-knots-solution-admin-2.onrender.com/api/contact/${id}`,
       );
 
       // Remove from UI

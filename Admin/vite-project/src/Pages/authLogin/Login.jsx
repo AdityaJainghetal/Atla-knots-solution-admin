@@ -28,7 +28,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "https://bitzo-server-1.onrender.com/api/auth/login",
+        "https://atla-knots-solution-admin-2.onrender.com/api/auth/login",
         formData,
         {
           headers: {

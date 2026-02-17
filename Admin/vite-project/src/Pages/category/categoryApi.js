@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://bitzo-server-1.onrender.com/api/category",
+  baseURL: "https://atla-knots-solution-admin-2.onrender.com/api/category",
 });
 
 // CREATE
