@@ -58,23 +58,19 @@ const Dashboard = () => {
           techCategoriesRes,
         ] = await Promise.all([
           axios
-            .get("https://atla-knots-solution-admin-1.onrender.com/api/users")
+            .get("https://bitzo-server-1.onrender.com/api/users")
             .catch(() => ({ data: null })),
           axios
-            .get("https://atla-knots-solution-admin-1.onrender.com/query")
+            .get("https://bitzo-server-1.onrender.com/query")
             .catch(() => ({ data: null })),
           axios
-            .get("https://atla-knots-solution-admin-1.onrender.com/api/contact")
+            .get("https://bitzo-server-1.onrender.com/api/contact")
             .catch(() => ({ data: null })),
           axios
-            .get(
-              "https://atla-knots-solution-admin-1.onrender.com/api/technology/product",
-            )
+            .get("https://bitzo-server-1.onrender.com/api/technology/product")
             .catch(() => ({ data: null })),
           axios
-            .get(
-              "https://atla-knots-solution-admin-1.onrender.com/api/technology/category",
-            )
+            .get("https://bitzo-server-1.onrender.com/api/technology/category")
             .catch(() => ({ data: null })),
         ]);
 

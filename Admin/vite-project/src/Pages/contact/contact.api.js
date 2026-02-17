@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "https://atla-knots-solution-admin-1.onrender.com/api/contact";
+const API = "https://bitzo-server-1.onrender.com/api/contact";
 
 // GET All Contacts
 export const getContactsApi = () => {

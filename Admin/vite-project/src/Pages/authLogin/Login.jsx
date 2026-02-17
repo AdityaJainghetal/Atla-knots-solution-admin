@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LogIn, Mail, Lock } from "lucide-react";
@@ -29,13 +28,13 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "https://atla-knots-solution-admin-1.onrender.com/api/auth/login",
+        "https://bitzo-server-1.onrender.com/api/auth/login",
         formData,
         {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       const data = response.data;
